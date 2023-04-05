@@ -1,0 +1,106 @@
+1. ==================Model Analysis Report======================
+model.add(GRU(
+        input_shape=(sequence_length, nb_features),
+        units=512, kernel_initializer= initializer,
+        return_sequences=True))
+    model.add(GRU(
+        units=512, kernel_initializer= initializer,
+        return_sequences=True))
+    model.add(GRU(
+        units=512, kernel_initializer= initializer,
+        return_sequences=True))
+    model.add(GRU(
+        units=256, kernel_initializer=initializer,
+        return_sequences=True))
+    model.add(GRU(
+        units=256, kernel_initializer=initializer,
+        return_sequences=True))
+    # model.add(Dropout(0.2))
+    # model.add(GRU(
+    #     units=128, kernel_initializer= initializer,
+    #     return_sequences=False))
+    model.add(Conv1D(filters=128, kernel_size=4, kernel_initializer=initializer, padding='same'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv1D(filters=64, kernel_size=4, kernel_initializer=initializer, padding='same'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv1D(filters=64, kernel_size=8, kernel_initializer=initializer, padding='same'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    # model.add(Dropout(0.2))
+    model.add(Dense(128))
+    model.add(Activation("relu"))
+    model.add(Dense(64))
+    model.add(Activation("relu"))
+    model.add(Flatten())
+    model.add(Dense(1, kernel_initializer=initializer))
+
+Doc:
+op: The nodes are operation kernel type, such as MatMul, Conv2D. Graph nodes belonging to the same type are aggregated together.
+flops: Number of float operations. Note: Please read the implementation for the math behind it.
+
+Profile:
+node name | # float_ops
+MatMul                   11.54m float_ops (100.00%, 99.73%)
+BiasAdd                  21.89k float_ops (0.27%, 0.19%)
+Mul                      6.66k float_ops (0.08%, 0.06%)
+Sub                      2.30k float_ops (0.02%, 0.02%)
+Rsqrt                      512 float_ops (0.00%, 0.00%)
+
+======================End of Report==========================
+The FLOPs is:11568001
+wind length_50,  win stride_1
+# Training samples:  442357
+# Inference samples:  256204
+Training time:  21213.859923362732
+Inference time:  261.6156795024872
+Result in RMSE:  10.98
+Result in NASA Score:  1.9705885765297484
+==============================================================================================================
+1. MSLE
+   INFO: root                : The FLOPs is:16460097
+   INFO: root                : Training time:  536.9388551712036
+   INFO: root                : Test data index: 11.0; Subsampled by 10 to (6631, 50, 20)
+   INFO: root                : Test data index: 14.0; Subsampled by 10 to (1563, 50, 20)
+   INFO: root                : Test data index: 15.0; Subsampled by 10 to (4330, 50, 20)
+   INFO: root                : Predictions: (12524,), Ground Truths: (12524,)
+   INFO: root                : The FLOPs is:16460097
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  52608
+   INFO: root                : # Inference samples:  12524
+   INFO: root                : Training time:  536.9388551712036
+   INFO: root                : Inference time:  15.009047985076904
+   INFO: root                : Result in RMSE:  7.51
+   INFO: root                : Result in NASA Score:  0.8868730664253235
+==============================================================================================================
+2. NASAScore
+   INFO: root                : The FLOPs is:16460097
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  52608
+   INFO: root                : # Inference samples:  12524
+   INFO: root                : Training time:  538.6486353874207
+   INFO: root                : Inference time:  15.620681524276733
+   INFO: root                : Result in RMSE:  7.82
+   INFO: root                : Result in NASA Score:  1.0533660650253296
+==============================================================================================================
+3. Huber
+   INFO: root                : The FLOPs is:16460097
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  52608
+   INFO: root                : # Inference samples:  12524
+   INFO: root                : Training time:  540.943279504776
+   INFO: root                : Inference time:  14.594595909118652
+   INFO: root                : Result in RMSE:  7.93
+   INFO: root                : Result in NASA Score:  1.1363747119903564
+==============================================================================================================
+4. MSE
+   INFO: root                : The FLOPs is:16460097
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  52608
+   INFO: root                : # Inference samples:  12524
+   INFO: root                : Training time:  539.4218628406525
+   INFO: root                : Inference time:  15.009612083435059
+   INFO: root                : Result in RMSE:  6.38
+   INFO: root                : Result in NASA Score:  0.7120002508163452
+==============================================================================================================
