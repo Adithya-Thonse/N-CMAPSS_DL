@@ -201,14 +201,14 @@ Seems like 10% is a sweet spot. Although 20% has better numbers, it also means a
 6. With the above learnings, 
    1. After excluding two datasets as mentioned above
    2. and predicting only the critical RULs (second half)
-   3. Skipping 10% of the beginning and end samples for every RUL </br>
+   3. Skipping 15% of the beginning and end samples for every RUL </br>
    
    Model using GRU+CNN+FC of `10.6M FLOPS` gave the following results: </br>
    In my opinion, these results are really good! To be able to predict within 5 cycles of the actual RUL is amazing. 
 
-| No. of Training Samples | No. of inference Samples | RMSE | NASA Score |
-|-------------------------|--------------------------|:----:|:----------:|
-| 231192                  | 64158                    | 4.98 |    0.47    |
+| FLOPS    | No. of Training Samples | No. of inference Samples | RMSE | NASA Score |
+|----------|-------------------------|--------------------------|:----:|:----------:|
+| 10635625 | 231192                  | 64158                    | 4.98 |    0.47    |
 
 7. A much smaller model `deepgrucnnfc` in `dnn.py` which had just `3.07M FLOPS` yielded the following results.
 All 7 datasets were taken with 10% of data being skipped.
