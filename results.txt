@@ -60,12 +60,6 @@ Result in NASA Score:  1.9705885765297484
 ==============================================================================================================
 1. MSLE
    INFO: root                : The FLOPs is:16460097
-   INFO: root                : Training time:  536.9388551712036
-   INFO: root                : Test data index: 11.0; Subsampled by 10 to (6631, 50, 20)
-   INFO: root                : Test data index: 14.0; Subsampled by 10 to (1563, 50, 20)
-   INFO: root                : Test data index: 15.0; Subsampled by 10 to (4330, 50, 20)
-   INFO: root                : Predictions: (12524,), Ground Truths: (12524,)
-   INFO: root                : The FLOPs is:16460097
    INFO: root                : wind length_50,  win stride_1
    INFO: root                : # Training samples:  52608
    INFO: root                : # Inference samples:  12524
@@ -75,32 +69,210 @@ Result in NASA Score:  1.9705885765297484
    INFO: root                : Result in NASA Score:  0.8868730664253235
 ==============================================================================================================
 2. NASAScore
-   INFO: root                : The FLOPs is:16460097
-   INFO: root                : wind length_50,  win stride_1
-   INFO: root                : # Training samples:  52608
-   INFO: root                : # Inference samples:  12524
    INFO: root                : Training time:  538.6486353874207
    INFO: root                : Inference time:  15.620681524276733
    INFO: root                : Result in RMSE:  7.82
    INFO: root                : Result in NASA Score:  1.0533660650253296
 ==============================================================================================================
 3. Huber
-   INFO: root                : The FLOPs is:16460097
-   INFO: root                : wind length_50,  win stride_1
-   INFO: root                : # Training samples:  52608
-   INFO: root                : # Inference samples:  12524
    INFO: root                : Training time:  540.943279504776
    INFO: root                : Inference time:  14.594595909118652
    INFO: root                : Result in RMSE:  7.93
    INFO: root                : Result in NASA Score:  1.1363747119903564
 ==============================================================================================================
 4. MSE
-   INFO: root                : The FLOPs is:16460097
-   INFO: root                : wind length_50,  win stride_1
-   INFO: root                : # Training samples:  52608
-   INFO: root                : # Inference samples:  12524
    INFO: root                : Training time:  539.4218628406525
    INFO: root                : Inference time:  15.009612083435059
    INFO: root                : Result in RMSE:  6.38
    INFO: root                : Result in NASA Score:  0.7120002508163452
 ==============================================================================================================
+
+
+==============================================================================================================
+==============================================================================================================
+Experiments regarding training a large model on all samples and testing on different models
+python inference_cnn_aggr.py -only_eval_model Models/oned_cnn_rep_alldata_1000ep_cudnngru_rmse11.2.h5
+1. Original Model
+   INFO: root                : The FLOPs is:49673500
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Inference samples:  179625
+   INFO: root                : Inference time:  502.70011711120605
+   INFO: root                : Result in RMSE:  11.16
+   INFO: root                : Result in NASA Score:  2.09
+==============================================================================================================
+2. Second half RULs
+   INFO: root                : # Inference samples:  89819
+   INFO: root                : Inference time:  372.280309677124
+   INFO: root                : Result in RMSE:  9.94
+   INFO: root                : Result in NASA Score:  1.73
+==============================================================================================================
+Individual Flight Classes: 
+Flight Class 1  Second half RULs
+   INFO: root                : # Inference samples:  15973
+   INFO: root                : Inference time:  104.01588797569275
+   INFO: root                : Result in RMSE:  8.39
+   INFO: root                : Result in NASA Score:  0.87
+==============================================================================================================
+Flight Class 2  Second half RULs
+   INFO: root                : # Inference samples:  31572
+   INFO: root                : Inference time:  135.2653934955597
+   INFO: root                : Result in RMSE:  9.76
+   INFO: root                : Result in NASA Score:  1.38
+==============================================================================================================
+Flight Class 3  Second half RULs
+   INFO: root                : # Inference samples:  42274
+   INFO: root                : Inference time:  135.98625254631042
+   INFO: root                : Result in RMSE:  10.58
+   INFO: root                : Result in NASA Score:  2.31
+==============================================================================================================
+N-CMAPSS_DS02-006
+   INFO: root                : # Inference samples:  4394
+   INFO: root                : Inference time:  26.469693422317505
+   INFO: root                : Result in RMSE:  2.97
+   INFO: root                : Result in NASA Score:  0.19
+N-CMAPSS_DS07
+   INFO: root                : # Inference samples:  10056
+   INFO: root                : Inference time:  41.79841184616089
+   INFO: root                : Result in RMSE:  7.1
+   INFO: root                : Result in NASA Score:  0.89
+N-CMAPSS_DS06
+   INFO: root                : # Inference samples:  8837
+   INFO: root                : Inference time:  35.08942127227783
+   INFO: root                : Result in RMSE:  4.23
+   INFO: root                : Result in NASA Score:  0.34
+N-CMAPSS_DS01-005
+   INFO: root                : # Inference samples:  9584
+   INFO: root                : Inference time:  40.68697953224182
+   INFO: root                : Result in RMSE:  7.69
+   INFO: root                : Result in NASA Score:  0.79
+N-CMAPSS_DS05
+   INFO: root                : # Inference samples:  8976
+   INFO: root                : Inference time:  39.60659098625183
+   INFO: root                : Result in RMSE:  3.32
+   INFO: root                : Result in NASA Score:  0.27
+N-CMAPSS_DS03-012
+   INFO: root                : # Inference samples:  14892
+   INFO: root                : Inference time:  61.31437420845032
+   INFO: root                : Result in RMSE:  4.16
+   INFO: root                : Result in NASA Score:  0.35
+N-CMAPSS_DS08a-009
+   INFO: root                : # Inference samples:  13042
+   INFO: root                : Inference time:  57.42448401451111
+   INFO: root                : Result in RMSE:  18.31
+   INFO: root                : Result in NASA Score:  6.62
+N-CMAPSS_DS04
+   INFO: root                : # Inference samples:  12619
+   INFO: root                : Inference time:  46.31262016296387
+   INFO: root                : Result in RMSE:  14.7
+   INFO: root                : Result in NASA Score:  3.04
+N-CMAPSS_DS08c-008
+   INFO: root                : # Inference samples:  7419
+   INFO: root                : Inference time:  37.351288080215454
+   INFO: root                : Result in RMSE:  4.31
+   INFO: root                : Result in NASA Score:  0.33
+
+==============================================================================================================
+ python inference_cnn_aggr.py -only_eval_model Models/oned_cnn_rep_alldata_1000ep_cudnngru.h5
+==============================================================================================================
+N-CMAPSS_DS02-006
+   INFO: root                : # Inference samples:  4394
+   INFO: root                : Inference time:  15.613186836242676
+   INFO: root                : Result in RMSE:  3.88
+   INFO: root                : Result in NASA Score:  0.28
+N-CMAPSS_DS07
+   INFO: root                : # Inference samples:  10056
+   INFO: root                : Inference time:  25.062885284423828
+   INFO: root                : Result in RMSE:  5.5
+   INFO: root                : Result in NASA Score:  0.59
+N-CMAPSS_DS06
+   INFO: root                : # Inference samples:  8837
+   INFO: root                : Inference time:  21.3364520072937
+   INFO: root                : Result in RMSE:  3.8
+   INFO: root                : Result in NASA Score:  0.31
+N-CMAPSS_DS01-005
+   INFO: root                : # Inference samples:  9584
+   INFO: root                : Inference time:  24.59056782722473
+   INFO: root                : Result in RMSE:  5.66
+   INFO: root                : Result in NASA Score:  0.44
+N-CMAPSS_DS05
+   INFO: root                : # Inference samples:  8976
+   INFO: root                : Inference time:  24.220919609069824
+   INFO: root                : Result in RMSE:  4.07
+   INFO: root                : Result in NASA Score:  0.32
+N-CMAPSS_DS03-012
+   INFO: root                : # Inference samples:  14892
+   INFO: root                : Inference time:  38.12988042831421
+   INFO: root                : Result in RMSE:  3.64
+   INFO: root                : Result in NASA Score:  0.30
+N-CMAPSS_DS08a-009
+   INFO: root                : # Inference samples:  13042
+   INFO: root                : Inference time:  34.835657596588135
+   INFO: root                : Result in RMSE:  15.97
+   INFO: root                : Result in NASA Score:  4.11
+N-CMAPSS_DS04
+   INFO: root                : # Inference samples:  12619
+   INFO: root                : Inference time:  28.59712314605713
+   INFO: root                : Result in RMSE:  15.92
+   INFO: root                : Result in NASA Score:  3.80
+N-CMAPSS_DS08c-008
+   INFO: root                : # Inference samples:  7419
+   INFO: root                : Inference time:  22.267906427383423
+   INFO: root                : Result in RMSE:  4.27
+   INFO: root                : Result in NASA Score:  0.34
+==============================================================================================================
+ python inference_cnn_aggr.py with except2_1000ep_gru_cnn_dc_secondhalf_RULs.h5
+==============================================================================================================
+   INFO: root                : The FLOPs is:10635625
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  231192
+   INFO: root                : Training time:  25384.727241754532
+   INFO: root                : # Inference samples:  64158
+   INFO: root                : Inference time:  124.20241332054138
+   INFO: root                : Result in RMSE:  4.98
+   INFO: root                : Result in NASA Score:  0.47
+==============================================================================================================
+==============================================================================================================
+Experiment with Ds02 no skip: DS02_50ep_gru_cnn_fc_fullRULS
+   INFO: root                : The FLOPs is:10635625
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  52608
+   INFO: root                : Training time:  855.5979037284851
+   INFO: root                : # Inference samples:  12524
+   INFO: root                : Inference time:  11.82399582862854
+   INFO: root                : Result in RMSE:  8.19
+   INFO: root                : Result in NASA Score:  0.80
+Experiment with Ds02 10% skip
+   INFO: root                : The FLOPs is:10635625
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Inference samples:  10036
+   INFO: root                : Inference time:  15.885358810424805
+   INFO: root                : Result in RMSE:  6.44
+   INFO: root                : Result in NASA Score:  0.59
+Experiment with Ds02 15% skip
+   INFO: root                : The FLOPs is:10635625
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  36868
+   INFO: root                : Training time:  600.7700386047363
+   INFO: root                : # Inference samples:  8786
+   INFO: root                : Inference time:  13.050638675689697
+   INFO: root                : Result in RMSE:  7.69
+   INFO: root                : Result in NASA Score:  0.74
+Experiment with Ds02 20% skip
+   INFO: root                : The FLOPs is:10635625
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  31603
+   INFO: root                : Training time:  522.1524393558502
+   INFO: root                : # Inference samples:  7532
+   INFO: root                : Inference time:  13.226936101913452
+   INFO: root                : Result in RMSE:  5.99
+   INFO: root                : Result in NASA Score:  0.53
+Experiment with Ds02 30% skip
+   INFO: root                : The FLOPs is:10635625
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  21084
+   INFO: root                : Training time:  360.5710003376007
+   INFO: root                : # Inference samples:  5029
+   INFO: root                : Inference time:  11.5005362033844
+   INFO: root                : Result in RMSE:  8.47
+   INFO: root                : Result in NASA Score:  0.94
+

@@ -9,7 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import random
 from random import shuffle
-from os.path import join as opj, basename as opb, splitext as ops
+from os.path import join as opj, basename as opb, splitext as ops, exists as ope
 
 seed = 0
 random.seed(0)
@@ -33,8 +33,8 @@ from tensorflow.keras.initializers import GlorotNormal, GlorotUniform
 initializer = GlorotNormal(seed=0)
 # initializer = GlorotUniform(seed=0)
 
-from utils.dnn import one_dcnn, TD_CNNBranch, cudnnlstm, cudnngru
-from mdcl_utils import command_display
+from utils.dnn import one_dcnn, TD_CNNBranch, cudnnlstm, cudnngru, deepgrucnnfc
+from mdcl_utils import command_display, path_arg
 
 # Ignore tf err log
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -45,9 +45,10 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 data_filedir = os.path.join(current_dir, 'N-CMAPSS')
 sample_dir_path = os.path.join(data_filedir, 'Samples_whole')
 # filenames = [opb(x) for x in glob(sample_dir_path + '/*')]
-filenames = ['N-CMAPSS_DS02-006', 'N-CMAPSS_DS07', 'N-CMAPSS_DS06', 'N-CMAPSS_DS01-005', 'N-CMAPSS_DS05', 'N-CMAPSS_DS03-012', 'N-CMAPSS_DS08a-009', 'N-CMAPSS_DS04', 'N-CMAPSS_DS08c-008']
+filenames = ['N-CMAPSS_DS02-006', 'N-CMAPSS_DS07', 'N-CMAPSS_DS06', 'N-CMAPSS_DS01-005', 'N-CMAPSS_DS05', 'N-CMAPSS_DS03-012', 'N-CMAPSS_DS08c-008']
+# Excluded Datasets: 'N-CMAPSS_DS08a-009', 'N-CMAPSS_DS04',
 # filenames = ['N-CMAPSS_DS02-006']
-model_temp_path = os.path.join(current_dir, 'Models', 'oned_cnn_rep.h5')
+model_temp_path = os.path.join(current_dir, 'Models', 'model.h5')
 tf_temp_path = os.path.join(current_dir, 'TF_Model_tf')
 log_dir = os.path.join(current_dir, 'log_dir')
 
@@ -177,6 +178,11 @@ def release_list(a):
 # units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
 # units_index_test = [11.0, 14.0, 15.0]
 def skip_samples(sample_array, label_array, skip):
+    """
+    If skip=0.1
+    This function skips the first 10% and last 10% of the samples for a given RUL of an engine.
+    This is done because the features during the change in RUL to the next number are highly noisy for the model to predict
+    """
     return_label_array = np.array([], dtype=np.float32)#.reshape(0, label_array.shape[1])
     return_sample_array = np.array([], dtype=np.float32).reshape(0, sample_array.shape[1], sample_array.shape[2])
 
@@ -200,24 +206,26 @@ def main():
     parser = argparse.ArgumentParser(description='sample creator')
     parser.add_argument('-w', type=int, default=50, help='sequence length')#, required=True)
     parser.add_argument('-s', type=int, default=1, help='stride of filter')
-    parser.add_argument('-f', type=int, default=300, help='number of filter')
-    parser.add_argument('-k', type=int, default=10, help='size of kernel')
+    # parser.add_argument('-f', type=int, default=300, help='number of filter')
+    # parser.add_argument('-k', type=int, default=10, help='size of kernel')
     parser.add_argument('-bs', type=int, default=256, help='batch size')
     parser.add_argument('-ep', type=int, default=1000, help='max epoch')
     parser.add_argument('-pt', type=int, default=50, help='patience')
     parser.add_argument('-vs', type=float, default=0.2, help='validation split')
     parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
     parser.add_argument('-sub', type=int, default=10, help='subsampling stride')
-    parser.add_argument('-skip', type=int, default=15, help='% of samples in each RUL of a unit to skip from beginning and end')
+    parser.add_argument('-skip', type=int, default=0, help='% of samples in each RUL of a unit to skip from beginning and end')
     parser.add_argument('--sampling', type=int, default=10, help='sub sampling of the given data. If it is 10, then this indicates that we assumes 0.1Hz of data collection')
+    parser.add_argument('-only_eval_model', type=path_arg, help='Evaluate a pretrained model on the test set')
+    parser.add_argument('-eval_critical_ruls', action='store_true', help='Evaluate the model on only the lower half of RULs')
 
     args = parser.parse_args()
 
     win_len = args.w
     win_stride = args.s
     partition = 3
-    n_filters = args.f
-    kernel_size = args.k
+    # n_filters = args.f
+    # kernel_size = args.k
     lr = args.lr
     bs = args.bs
     ep = args.ep
@@ -228,85 +236,95 @@ def main():
     sampling = args.sampling
     logger = command_display("{}.lis".format(ops(opb(__file__))[0]))
 
-    amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
-    rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
-                               name='RMSprop')
-    train_units_samples_lst = []
-    train_units_labels_lst = []
+    if not(args.only_eval_model and ope(args.only_eval_model)):
+        model_temp_path = os.path.join(current_dir, 'Models', 'model.h5')
+        amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
+        rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
+                                   name='RMSprop')
+        train_units_samples_lst = []
+        train_units_labels_lst = []
 
-    for filename in filenames:
-        units_index_train = np.fromstring(
-            file_devtest_df[file_devtest_df.File == filename + '.h5']["Dev Units"].values[0][1:-1],
-            dtype=np.float, sep=' ').tolist()
+        for filename in filenames:
+            units_index_train = np.fromstring(
+                file_devtest_df[file_devtest_df.File == filename + '.h5']["Dev Units"].values[0][1:-1],
+                dtype=np.float, sep=' ').tolist()
 
-        for index in units_index_train:
-            if index < 0.:
-                continue
-            sample_array, label_array = load_array(opj(sample_dir_path, filename), index, win_len, win_stride, sampling)
-            #sample_array, label_array = shuffle_array(sample_array, label_array)
-            # logger.info("sample_array.shape {}".format(sample_array.shape))
-            # logger.info("label_array.shape {}".format(label_array.shape))
-            sample_array, label_array = skip_samples(sample_array, label_array, skip)
-            sample_array = sample_array[::sub]
-            label_array = label_array[::sub]
-            # logger.info("sub sample_array.shape {}".format(sample_array.shape))
-            # logger.info("sub label_array.shape {}".format(label_array.shape))
-            train_units_samples_lst.append(sample_array)
-            train_units_labels_lst.append(label_array)
-            logger.info("Load Train index: {:2.1f}; Subsampled by {} to {}".format(index, sub, sample_array.shape,))
+            for index in units_index_train:
+                if index < 0.:
+                    continue
+                sample_array, label_array = load_array(opj(sample_dir_path, filename), index, win_len, win_stride, sampling)
+                #sample_array, label_array = shuffle_array(sample_array, label_array)
+                # logger.info("sample_array.shape {}".format(sample_array.shape))
+                # logger.info("label_array.shape {}".format(label_array.shape))
+                if args.skip:
+                    sample_array, label_array = skip_samples(sample_array, label_array, skip)
+                sample_array = sample_array[::sub]
+                label_array = label_array[::sub]
+                # logger.info("sub sample_array.shape {}".format(sample_array.shape))
+                # logger.info("sub label_array.shape {}".format(label_array.shape))
+                train_units_samples_lst.append(sample_array)
+                train_units_labels_lst.append(label_array)
+                logger.info("Load Train index: {:2.1f}; Subsampled by {} to {}".format(index, sub, sample_array.shape,))
 
-    sample_array = np.concatenate(train_units_samples_lst)
-    label_array = np.concatenate(train_units_labels_lst)
-    # sample_array = np.reshape(sample_array, (sample_array.shape[0], 1, 50, 20))
-    logger.info("Samples are aggregated")
+        sample_array = np.concatenate(train_units_samples_lst)
+        label_array = np.concatenate(train_units_labels_lst)
+        # sample_array = np.reshape(sample_array, (sample_array.shape[0], 1, 50, 20))
+        logger.info("Samples are aggregated")
 
-    release_list(train_units_samples_lst)
-    release_list(train_units_labels_lst)
-    train_units_samples_lst =[]
-    train_units_labels_lst = []
-    logger.info("Memory released")
+        release_list(train_units_samples_lst)
+        release_list(train_units_labels_lst)
+        train_units_samples_lst =[]
+        train_units_labels_lst = []
+        logger.info("Memory released")
 
-    sample_array, label_array = shuffle_array(sample_array, label_array)
-    logger.info("Samples are shuffled")
-    # logger.info("Sample_array.shape {}".format(sample_array.shape))
-    # logger.info("Label_array.shape {}".format(label_array.shape))
-    #
-    # logger.info("Train sample dtype {}".format(sample_array.dtype))
-    # logger.info("Train label dtype {}".format(label_array.dtype))
+        sample_array, label_array = shuffle_array(sample_array, label_array)
+        logger.info("Samples are shuffled")
+        # logger.info("Sample_array.shape {}".format(sample_array.shape))
+        # logger.info("Label_array.shape {}".format(label_array.shape))
+        #
+        # logger.info("Train sample dtype {}".format(sample_array.dtype))
+        # logger.info("Train label dtype {}".format(label_array.dtype))
 
-    # strategy = tf.distribute.MirroredStrategy()
-    # with strategy.scope():
-    # model = one_dcnn(n_filters, kernel_size, sample_array, initializer)
-    model = cudnngru(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
-    # model = TD_CNNBranch(n_filters, window_length=sample_array.shape[2], n_window=1, input_features=sample_array.shape[3],
-    #                                strides_len=0, kernel_size=kernel_size, n_conv_layer=4, initializer=initializer)
-    model.summary(print_fn=logger.info)
-    # model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
-    logger.info("Beginning Model Training")
-    start = time.time()
-    lr_scheduler = LearningRateScheduler(scheduler)
-    model.compile(loss='mse', optimizer=amsgrad, metrics=['mse', ]) # 'mse'nasa_score
-    history = model.fit(
-        sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-        callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1),
-                     TensorBoard(log_dir=log_dir, histogram_freq=1),
-                     ],)
-    # TqdmCallback(verbose=2)
-    # model.save(tf_temp_path,save_format='tf')
-    figsave(history, win_len, win_stride, bs, lr, sub)
-    logger.info("Completed Model Training")
+        # strategy = tf.distribute.MirroredStrategy()
+        # with strategy.scope():
+        # model = one_dcnn(n_filters, kernel_size, sample_array, initializer)
+        # model = cudnngru(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
+        model = deepgrucnnfc(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
+        # model = TD_CNNBranch(n_filters, window_length=sample_array.shape[2], n_window=1, input_features=sample_array.shape[3],
+        #                                strides_len=0, kernel_size=kernel_size, n_conv_layer=4, initializer=initializer)
+        model.summary(print_fn=logger.info)
+        # model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
+        logger.info("Beginning Model Training")
+        start = time.time()
+        lr_scheduler = LearningRateScheduler(scheduler)
+        model.compile(loss='mse', optimizer=amsgrad, metrics=['mse', ]) # 'mse'nasa_score
+        history = model.fit(
+            sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
+            callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1),
+                         TensorBoard(log_dir=log_dir, histogram_freq=1),
+                         ],)
+        # TqdmCallback(verbose=2)
+        # model.save(tf_temp_path,save_format='tf')
+        figsave(history, win_len, win_stride, bs, lr, sub)
+        logger.info("Completed Model Training")
 
+        num_train = sample_array.shape[0]
+        end = time.time()
+        training_time = end - start
+        logger.info("Training time:  {}".format(training_time))
+
+    else:
+        logger.info("No training will be done. Only evaluating: {}".format(args.only_eval_model))
+        model_temp_path = args.only_eval_model
+        model = tf.keras.models.load_model(args.only_eval_model)
     logger.info("The FLOPs is:{}".format(get_flops(model)))
-    num_train = sample_array.shape[0]
-    end = time.time()
-    training_time = end - start
-    logger.info("Training time:  {}".format(training_time))
-
     # Test (inference after training)
     start = time.time()
     output_lst = []
     truth_lst = []
+    # dt_num = 0
+    # for filename in [filenames[dt_num]]:
     for filename in filenames:
         units_index_test = np.fromstring(
             file_devtest_df[file_devtest_df.File == filename + '.h5']["Test Units"].values[0][1:-1],
@@ -317,10 +335,14 @@ def main():
                 continue
             # logger.info("test idx:  {}".format(index))
             sample_array, label_array = load_array(opj(sample_dir_path, filename), index, win_len, win_stride, sampling)
+            if args.eval_critical_ruls:
+                label_array_len = int(len(label_array)/2)
+                sample_array, label_array = sample_array[label_array_len:], label_array[label_array_len:]
             # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
             # logger.info("sample_array.shape {}".format(sample_array.shape))
             # logger.info("label_array.shape {}".format(label_array.shape))
-            sample_array, label_array = skip_samples(sample_array, label_array, skip)
+            if args.skip:
+                sample_array, label_array = skip_samples(sample_array, label_array, skip)
             sample_array = sample_array[::sub]
             label_array = label_array[::sub]
             # logger.info("sub sample_array.shape {}".format(sample_array.shape))
@@ -350,6 +372,7 @@ def main():
     end = time.time()
     inference_time = end - start
     num_test = output_array.shape[0]
+    # for filename in [filenames[dt_num]]:
     for filename in filenames:
         units_index_test = np.fromstring(
             file_devtest_df[file_devtest_df.File == filename + '.h5']["Test Units"].values[0][1:-1],
@@ -373,9 +396,10 @@ def main():
 
     logger.info("The FLOPs is:{}".format(get_flops(model)))
     logger.info("wind length_{},  win stride_{}".format(win_len, win_stride))
-    logger.info("# Training samples:  {}".format(num_train))
+    if not(args.only_eval_model and ope(args.only_eval_model)):
+        logger.info("# Training samples:  {}".format(num_train))
+        logger.info("Training time:  {}".format(training_time))
     logger.info("# Inference samples:  {}".format(num_test))
-    logger.info("Training time:  {}".format(training_time))
     logger.info("Inference time:  {}".format(inference_time))
     logger.info("Result in RMSE:  {}".format(rms))
     logger.info("Result in NASA Score:  {:.2f}".format(nasa_score_num))
