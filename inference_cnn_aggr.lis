@@ -1,108 +1,117 @@
    INFO: root                : 
   Execution information:
-  Date/Time of run : 2023-04-04 21:47:31
+  Date/Time of run : 2023-04-07 14:31:07
   Node name        : udb0484689
   User login       : a0484689
   Operating System : Linux-5.4.0-84-generic-x86_64-with-glibc2.27
   Python location  : /home/a0484689/.pyenv/versions/py310_ncmapss/bin/python
 
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (5976, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (7239, 50, 20)
-   INFO: root                : Load Train index: 10.0; Subsampled by 10 to (6674, 50, 20)
-   INFO: root                : Load Train index: 16.0; Subsampled by 10 to (5360, 50, 20)
-   INFO: root                : Load Train index: 18.0; Subsampled by 10 to (6239, 50, 20)
-   INFO: root                : Load Train index: 20.0; Subsampled by 10 to (5380, 50, 20)
-   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (4318, 50, 20)
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (8786, 50, 20)
-   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (4742, 50, 20)
-   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (2487, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (2689, 50, 20)
-   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (7457, 50, 20)
-   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (5010, 50, 20)
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (8078, 50, 20)
-   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (3990, 50, 20)
-   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (2721, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (3135, 50, 20)
-   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (6896, 50, 20)
-   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (3041, 50, 20)
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (7347, 50, 20)
-   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (6258, 50, 20)
-   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (2905, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (8967, 50, 20)
-   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (5864, 50, 20)
-   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (5132, 50, 20)
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (8276, 50, 20)
-   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (3990, 50, 20)
+   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (6828, 50, 20)
+   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (8272, 50, 20)
+   INFO: root                : Load Train index: 10.0; Subsampled by 10 to (7626, 50, 20)
+   INFO: root                : Load Train index: 16.0; Subsampled by 10 to (6124, 50, 20)
+   INFO: root                : Load Train index: 18.0; Subsampled by 10 to (7130, 50, 20)
+   INFO: root                : Load Train index: 20.0; Subsampled by 10 to (6147, 50, 20)
+   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (4934, 50, 20)
+   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (10040, 50, 20)
+   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (5416, 50, 20)
+   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (2841, 50, 20)
+   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (3071, 50, 20)
+   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (8521, 50, 20)
+   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (5724, 50, 20)
+   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (9230, 50, 20)
+   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (4557, 50, 20)
    INFO: root                : Load Train index: 4.0; Subsampled by 10 to (3107, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (3158, 50, 20)
-   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (6822, 50, 20)
-   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (2163, 50, 20)
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (4535, 50, 20)
-   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (4133, 50, 20)
-   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (3776, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (2814, 50, 20)
-   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (6628, 50, 20)
-   INFO: root                : Load Train index: 7.0; Subsampled by 10 to (4904, 50, 20)
-   INFO: root                : Load Train index: 8.0; Subsampled by 10 to (7529, 50, 20)
-   INFO: root                : Load Train index: 9.0; Subsampled by 10 to (2555, 50, 20)
-   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (2251, 50, 20)
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (5178, 50, 20)
-   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (2388, 50, 20)
-   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (4310, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (3436, 50, 20)
-   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (5672, 50, 20)
-   INFO: root                : Load Train index: 7.0; Subsampled by 10 to (4167, 50, 20)
-   INFO: root                : Load Train index: 8.0; Subsampled by 10 to (4021, 50, 20)
-   INFO: root                : Load Train index: 9.0; Subsampled by 10 to (2805, 50, 20)
-   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (5426, 50, 20)
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (7534, 50, 20)
-   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (6474, 50, 20)
-   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (6850, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (10074, 50, 20)
-   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (8314, 50, 20)
-   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (5539, 50, 20)
-   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (5334, 50, 20)
-   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (5385, 50, 20)
-   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (4931, 50, 20)
-   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (5207, 50, 20)
-   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (3715, 50, 20)
+   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (3581, 50, 20)
+   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (7880, 50, 20)
+   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (3473, 50, 20)
+   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (8396, 50, 20)
+   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (7150, 50, 20)
+   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (3317, 50, 20)
+   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (10246, 50, 20)
+   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (6700, 50, 20)
+   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (5864, 50, 20)
+   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (9457, 50, 20)
+   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (4557, 50, 20)
+   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (3549, 50, 20)
+   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (3608, 50, 20)
+   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (7794, 50, 20)
+   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (2470, 50, 20)
+   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (5180, 50, 20)
+   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (4722, 50, 20)
+   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (4314, 50, 20)
+   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (3214, 50, 20)
+   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (7574, 50, 20)
+   INFO: root                : Load Train index: 7.0; Subsampled by 10 to (5603, 50, 20)
+   INFO: root                : Load Train index: 8.0; Subsampled by 10 to (8603, 50, 20)
+   INFO: root                : Load Train index: 9.0; Subsampled by 10 to (2917, 50, 20)
+   INFO: root                : Load Train index: 1.0; Subsampled by 10 to (6329, 50, 20)
+   INFO: root                : Load Train index: 2.0; Subsampled by 10 to (6096, 50, 20)
+   INFO: root                : Load Train index: 3.0; Subsampled by 10 to (6152, 50, 20)
+   INFO: root                : Load Train index: 4.0; Subsampled by 10 to (5635, 50, 20)
+   INFO: root                : Load Train index: 5.0; Subsampled by 10 to (5950, 50, 20)
+   INFO: root                : Load Train index: 6.0; Subsampled by 10 to (4244, 50, 20)
    INFO: root                : Samples are aggregated
    INFO: root                : Memory released
-   INFO: root.shuffle_array  : ind_list before: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] ... [310082, 310083, 310084, 310085, 310086, 310087, 310088, 310089, 310090, 310091]
+   INFO: root.shuffle_array  : ind_list before: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] ... [264133, 264134, 264135, 264136, 264137, 264138, 264139, 264140, 264141, 264142]
    INFO: root.shuffle_array  : Shuffling in progress
-   INFO: root.shuffle_array  : ind_list after: [253099, 199068, 82260, 160550, 96898, 271073, 288393, 158524, 275376, 189006] ... [80186, 170584, 212038, 211543, 86293, 122579, 304137, 152315, 117952, 305711]
+   INFO: root.shuffle_array  : ind_list after: [193296, 119643, 23143, 253364, 246748, 58601, 107623, 29622, 168844, 140658] ... [150055, 17089, 80186, 170584, 212038, 211543, 86293, 122579, 152315, 117952]
    INFO: root                : Samples are shuffled
    INFO: root                : Model: "sequential"
    INFO: root                : _________________________________________________________________
    INFO: root                :  Layer (type)                Output Shape              Param #   
    INFO: root                : =================================================================
-   INFO: root                :  gru (GRU)                   (None, 50, 1000)          3066000   
+   INFO: root                :  gru (GRU)                   (None, 50, 500)           783000    
    INFO: root                :                                                                  
-   INFO: root                :  gru_1 (GRU)                 (None, 50, 1000)          6006000   
+   INFO: root                :  gru_1 (GRU)                 (None, 50, 200)           421200    
    INFO: root                :                                                                  
-   INFO: root                :  gru_2 (GRU)                 (None, 50, 1000)          6006000   
+   INFO: root                :  gru_2 (GRU)                 (None, 50, 200)           241200    
    INFO: root                :                                                                  
-   INFO: root                :  gru_3 (GRU)                 (None, 50, 1000)          6006000   
+   INFO: root                :  gru_3 (GRU)                 (None, 50, 100)           90600     
    INFO: root                :                                                                  
-   INFO: root                :  gru_4 (GRU)                 (None, 50, 500)           2253000   
+   INFO: root                :  conv1d (Conv1D)             (None, 50, 50)            75050     
    INFO: root                :                                                                  
-   INFO: root                :  gru_5 (GRU)                 (None, 50, 500)           1503000   
+   INFO: root                :  batch_normalization (BatchN  (None, 50, 50)           200       
+   INFO: root                :  ormalization)                                                   
    INFO: root                :                                                                  
-   INFO: root                :  flatten (Flatten)           (None, 25000)             0         
+   INFO: root                :  activation (Activation)     (None, 50, 50)            0         
    INFO: root                :                                                                  
-   INFO: root                :  dense (Dense)               (None, 100)               2500100   
+   INFO: root                :  conv1d_1 (Conv1D)           (None, 50, 50)            27550     
    INFO: root                :                                                                  
-   INFO: root                :  activation (Activation)     (None, 100)               0         
+   INFO: root                :  batch_normalization_1 (Batc  (None, 50, 50)           200       
+   INFO: root                :  hNormalization)                                                 
    INFO: root                :                                                                  
-   INFO: root                :  dense_1 (Dense)             (None, 100)               10100     
+   INFO: root                :  activation_1 (Activation)   (None, 50, 50)            0         
    INFO: root                :                                                                  
-   INFO: root                :  activation_1 (Activation)   (None, 100)               0         
+   INFO: root                :  conv1d_2 (Conv1D)           (None, 50, 50)            22550     
    INFO: root                :                                                                  
-   INFO: root                :  dense_2 (Dense)             (None, 1)                 101       
+   INFO: root                :  batch_normalization_2 (Batc  (None, 50, 50)           200       
+   INFO: root                :  hNormalization)                                                 
+   INFO: root                :                                                                  
+   INFO: root                :  activation_2 (Activation)   (None, 50, 50)            0         
+   INFO: root                :                                                                  
+   INFO: root                :  conv1d_3 (Conv1D)           (None, 50, 25)            8775      
+   INFO: root                :                                                                  
+   INFO: root                :  batch_normalization_3 (Batc  (None, 50, 25)           100       
+   INFO: root                :  hNormalization)                                                 
+   INFO: root                :                                                                  
+   INFO: root                :  activation_3 (Activation)   (None, 50, 25)            0         
+   INFO: root                :                                                                  
+   INFO: root                :  flatten (Flatten)           (None, 1250)              0         
+   INFO: root                :                                                                  
+   INFO: root                :  dense (Dense)               (None, 100)               125100    
+   INFO: root                :                                                                  
+   INFO: root                :  activation_4 (Activation)   (None, 100)               0         
+   INFO: root                :                                                                  
+   INFO: root                :  dense_1 (Dense)             (None, 10)                1010      
+   INFO: root                :                                                                  
+   INFO: root                :  activation_5 (Activation)   (None, 10)                0         
+   INFO: root                :                                                                  
+   INFO: root                :  dense_2 (Dense)             (None, 1)                 11        
    INFO: root                :                                                                  
    INFO: root                : =================================================================
-   INFO: root                : Total params: 27,350,301
-   INFO: root                : Trainable params: 27,350,301
-   INFO: root                : Non-trainable params: 0
+   INFO: root                : Total params: 1,796,746
+   INFO: root                : Trainable params: 1,796,396
+   INFO: root                : Non-trainable params: 350
    INFO: root                : _________________________________________________________________
    INFO: root                : Beginning Model Training
