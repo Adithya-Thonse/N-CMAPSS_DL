@@ -275,4 +275,16 @@ Experiment with Ds02 30% skip
    INFO: root                : Inference time:  11.5005362033844
    INFO: root                : Result in RMSE:  8.47
    INFO: root                : Result in NASA Score:  0.94
+==============================================================================================================
+deepgrucnnfc
+==============================================================================================================
+   INFO: root                : The FLOPs is:3070875
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  264143
+   INFO: root                : Training time:  16587.823249578476
+   INFO: root                : # Inference samples:  73308
+   INFO: root                : Inference time:  145.69640183448792
+   INFO: root                : Result in RMSE:  5.16
+   INFO: root                : Result in NASA Score:  0.48
+
 

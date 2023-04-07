@@ -115,3 +115,52 @@
    INFO: root                : Non-trainable params: 350
    INFO: root                : _________________________________________________________________
    INFO: root                : Beginning Model Training
+   INFO: root.figsave        : saving file:training loss figure at /home/a0484689/PycharmProjects/py310_ncmapss/N-CMAPSS_DL/Figures/training_w50_s1_bs256_sub10_lr0.001.png
+   INFO: root                : Completed Model Training
+   INFO: root                : Training time:  16587.823249578476
+   INFO: root                : The FLOPs is:3070875
+   INFO: root                : Test data index: 11.0; Subsampled by 10 to (2655, 50, 20)
+   INFO: root                : Test data index: 14.0; Subsampled by 10 to (629, 50, 20)
+   INFO: root                : Test data index: 15.0; Subsampled by 10 to (1736, 50, 20)
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (2743, 50, 20)
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (1411, 50, 20)
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (5762, 50, 20)
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1574, 50, 20)
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (2829, 50, 20)
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (1554, 50, 20)
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (4234, 50, 20)
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1481, 50, 20)
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (1573, 50, 20)
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (3204, 50, 20)
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (1409, 50, 20)
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (4766, 50, 20)
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (2987, 50, 20)
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (1555, 50, 20)
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (4234, 50, 20)
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1481, 50, 20)
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (3806, 50, 20)
+   INFO: root                : Test data index: 11.0; Subsampled by 10 to (3299, 50, 20)
+   INFO: root                : Test data index: 12.0; Subsampled by 10 to (1624, 50, 20)
+   INFO: root                : Test data index: 13.0; Subsampled by 10 to (4429, 50, 20)
+   INFO: root                : Test data index: 14.0; Subsampled by 10 to (1384, 50, 20)
+   INFO: root                : Test data index: 15.0; Subsampled by 10 to (2474, 50, 20)
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (2173, 50, 20)
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (2224, 50, 20)
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (2158, 50, 20)
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1920, 50, 20)
+   INFO: root                : Predictions: (73308,), Ground Truths: (73308,)
+   INFO: root                : The FLOPs is:3070875
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  264143
+   INFO: root                : Training time:  16587.823249578476
+   INFO: root                : # Inference samples:  73308
+   INFO: root                : Inference time:  145.69640183448792
+   INFO: root                : Result in RMSE:  5.16
+   INFO: root                : Result in NASA Score:  0.48
+   INFO: root                : 
+  Execution status:
+     0 Errors detected.
+     0 Warnings detected.
+
+  Total execution time : 4:42:09.280706
+

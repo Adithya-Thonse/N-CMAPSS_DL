@@ -53,38 +53,38 @@ tf_temp_path = os.path.join(current_dir, 'TF_Model_tf')
 log_dir = os.path.join(current_dir, 'log_dir')
 
 pic_dir = os.path.join(current_dir, 'Figures')
-file_devtest_df = pd.read_csv("File_DevUnits_TestUnits_org.csv")
-'''
-load array from npz files
-'''
-# def nasa_score(y_true, y_hat):
-#     """The original NASA score as per the original whitepaper"""
-#     error = tf.math.subtract(y_hat, y_true)
-#     is_negative_error = error < 0.
-#     temp_tensor = tf.where(
-#         is_negative_error, tf.math.multiply(error, -1./13.), tf.math.multiply(error, 0.1))
-#     nasascore = tf.math.reduce_mean(tf.math.expm1(temp_tensor))
-#     # print("NASA Score: {}".format(nasascore))
-#     return nasascore
-# class NASAScore(Loss):
-#     # initialize instance attributes
-#     def __init__(self):
-#         super().__init__()
-#     def call(self, y_true, y_hat):
-#         return nasa_score(y_true, y_hat)
-def nasa_score(y_true, y_hat):
-  res = 0
-  for true, hat in zip(y_true, y_hat):
-    subs = hat - true
-    if subs < 0:
-      res = res + np.exp(-subs/10)-1
-    else:
-      res = res + np.exp(subs/13)-1
-  # print("score: ", res)
+file_devtest_df = pd.read_csv("File_DevUnits_TestUnits.csv")
 
-  return res/len(y_true)
+
+class NASAScore(Loss):
+    # initialize instance attributes
+    def __init__(self):
+        super().__init__()
+    def call(self, y_true, y_hat):
+        error = tf.math.subtract(y_hat, y_true)
+        is_negative_error = error < 0.
+        temp_tensor = tf.where(
+            is_negative_error, tf.math.multiply(error, -1. / 13.), tf.math.multiply(error, 0.1))
+        nasascore = tf.math.reduce_mean(tf.math.expm1(temp_tensor))
+        # print("NASA Score: {}".format(nasascore))
+        return nasascore
+
+
+def nasa_score(y_true, y_hat):
+    """The original NASA score as per the original whitepaper"""
+    res = 0
+    for true, hat in zip(y_true, y_hat):
+        subs = hat - true
+        if subs < 0:
+            res = res + np.exp(-subs/10)-1
+        else:
+            res = res + np.exp(subs/13)-1
+    return res/len(y_true)
 
 def load_part_array (sample_dir_path, unit_num, win_len, stride, part_num):
+    '''
+    load array from npz files
+    '''
     filename = 'Unit%s_win%s_str%s_part%s.npz' %(str(int(unit_num)), win_len, stride, part_num)
     filepath = os.path.join(sample_dir_path, filename)
     loaded = np.load(filepath)
@@ -115,6 +115,7 @@ def load_array (sample_dir_path, unit_num, win_len, stride, sampling):
 
     return loaded['sample'].transpose(2, 0, 1), loaded['label']
 
+
 def rmse(y_true, y_pred):
     return backend.sqrt(backend.mean(backend.square(y_pred - y_true), axis=-1))
 
@@ -129,6 +130,7 @@ def shuffle_array(sample_array, label_array):
     shuffle_sample = sample_array[ind_list, :, :]
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
+
 
 def figsave(history, win_len, win_stride, bs, lr, sub):
     logger = logging.getLogger("root.figsave")
@@ -175,8 +177,7 @@ def release_list(a):
    del a[:]
    del a
 
-# units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
-# units_index_test = [11.0, 14.0, 15.0]
+
 def skip_samples(sample_array, label_array, skip):
     """
     If skip=0.1
@@ -214,10 +215,14 @@ def main():
     parser.add_argument('-vs', type=float, default=0.2, help='validation split')
     parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
     parser.add_argument('-sub', type=int, default=10, help='subsampling stride')
-    parser.add_argument('-skip', type=int, default=0, help='% of samples in each RUL of a unit to skip from beginning and end')
-    parser.add_argument('--sampling', type=int, default=10, help='sub sampling of the given data. If it is 10, then this indicates that we assumes 0.1Hz of data collection')
-    parser.add_argument('-only_eval_model', type=path_arg, help='Evaluate a pretrained model on the test set')
-    parser.add_argument('-eval_critical_ruls', action='store_true', help='Evaluate the model on only the lower half of RULs')
+    parser.add_argument('-skip', type=int, default=0,
+                        help='% of samples in each RUL of a unit to skip from beginning and end')
+    parser.add_argument('--sampling', type=int, default=10,
+                        help='sub sampling of the given data. If it is 10, then this indicates that we assumes 0.1Hz of data collection')
+    parser.add_argument('-only_eval_model', type=path_arg,
+                        help='Evaluate a pretrained model on the test set')
+    parser.add_argument('-eval_critical_ruls', action='store_true',
+                        help='Evaluate the model on only the lower half of RULs')
 
     args = parser.parse_args()
 
@@ -253,7 +258,7 @@ def main():
                 if index < 0.:
                     continue
                 sample_array, label_array = load_array(opj(sample_dir_path, filename), index, win_len, win_stride, sampling)
-                #sample_array, label_array = shuffle_array(sample_array, label_array)
+                # sample_array, label_array = shuffle_array(sample_array, label_array)
                 # logger.info("sample_array.shape {}".format(sample_array.shape))
                 # logger.info("label_array.shape {}".format(label_array.shape))
                 if args.skip:
