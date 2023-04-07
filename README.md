@@ -115,8 +115,10 @@ python3 inference_cnn_aggr.py -only_eval_model Models/<h5 model name>
 ```
 ---
 ## Useful Information
+
 Models will be generated in the ```Models/``` directory. It will be named ```model.h5``` by default </br>
 Training curves and test engine inference Figures will be generated in the ```Figures/``` directory. </br>
+
 ---
  Additionally, two more useful edits can be done in the ```inference_cnn_aggr.py``` code </br> 
 1. ```filenames = ``` declaration can be changed if you need the model to be trained/evaluated on custom datasets.
