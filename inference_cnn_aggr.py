@@ -33,7 +33,7 @@ from tensorflow.keras.initializers import GlorotNormal, GlorotUniform
 initializer = GlorotNormal(seed=0)
 # initializer = GlorotUniform(seed=0)
 
-from utils.dnn import one_dcnn, TD_CNNBranch, cudnnlstm, cudnngru, deepgrucnnfc
+from utils.dnn import one_dcnn, cudnnlstm, cudnngru, deepgrucnnfc, lankygrucnnfc, MobileNetV2, transformer
 from mdcl_utils import command_display, path_arg
 
 # Ignore tf err log
@@ -223,6 +223,11 @@ def main():
                         help='Evaluate a pretrained model on the test set')
     parser.add_argument('-eval_critical_ruls', action='store_true',
                         help='Evaluate the model on only the lower half of RULs')
+    parser.add_argument('-band', type=int, default=5, help="+/-band to draw in the final prediction v/s truth plots")
+    parser.add_argument('-model', help="+/-band to draw in the final prediction v/s truth plots", type=str,
+                        choices=["one_dcnn", "cudnnlstm", "cudnngru", "deepgrucnnfc", "lankygrucnnfc", "MobileNetV2",
+                                 "transformer"],
+                        default="transformer")
 
     args = parser.parse_args()
 
@@ -239,6 +244,7 @@ def main():
     sub = args.sub
     skip = args.skip / 100
     sampling = args.sampling
+    model= args.model
     logger = command_display("{}.lis".format(ops(opb(__file__))[0]))
 
     if not(args.only_eval_model and ope(args.only_eval_model)):
@@ -292,9 +298,22 @@ def main():
 
         # strategy = tf.distribute.MirroredStrategy()
         # with strategy.scope():
-        # model = one_dcnn(n_filters, kernel_size, sample_array, initializer)
-        # model = cudnngru(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
-        model = deepgrucnnfc(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
+        if model == "one_dcnn":
+            model = one_dcnn(n_filters, kernel_size, sample_array, initializer)
+        elif model == "cudnnlstm":
+            model = cudnngru(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
+        elif model == "cudnngru":
+            model = cudnngru(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
+        elif model == "deepgrucnnfc":
+            model = deepgrucnnfc(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
+        elif model == "lankygrucnnfc":
+            model = lankygrucnnfc(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
+        elif model == "MobileNetV2":
+            sample_array = sample_array.reshape((sample_array.shape[0], sample_array.shape[1], sample_array.shape[2], 1))
+            model = MobileNetV2()
+        elif model == "transformer":
+            model = transformer(sample_array.shape[1:], head_size=256, num_heads=4, ff_dim=4, num_transformer_blocks=4,
+                                mlp_units=[128], mlp_dropout=0.0, dropout=0.0,)
         # model = TD_CNNBranch(n_filters, window_length=sample_array.shape[2], n_window=1, input_features=sample_array.shape[3],
         #                                strides_len=0, kernel_size=kernel_size, n_conv_layer=4, initializer=initializer)
         model.summary(print_fn=logger.info)
@@ -302,7 +321,7 @@ def main():
         logger.info("Beginning Model Training")
         start = time.time()
         lr_scheduler = LearningRateScheduler(scheduler)
-        model.compile(loss='mse', optimizer=amsgrad, metrics=['mse', ]) # 'mse'nasa_score
+        model.compile(loss='mse', optimizer=amsgrad, metrics=['mse', ]) # NASAScore()
         history = model.fit(
             sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
             callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
@@ -353,11 +372,13 @@ def main():
             # logger.info("sub sample_array.shape {}".format(sample_array.shape))
             # logger.info("sub label_array.shape {}".format(label_array.shape))
             logger.info("Test data index: {:2.1f}; Subsampled by {} to {}".format(index, sub, sample_array.shape, ))
-            # custom_objects = {"NASAScore": NASAScore,}
-            # with tf.keras.utils.custom_object_scope(custom_objects):
-            #     estimator = load_model(model_temp_path,compile=False)
-            estimator = load_model(model_temp_path)
-
+            custom_objects = {"NASAScore": NASAScore,}
+            with tf.keras.utils.custom_object_scope(custom_objects):
+                estimator = load_model(model_temp_path,compile=False)
+            # estimator = load_model(model_temp_path)
+            if model == "MobileNetV2":
+                sample_array = sample_array.reshape(
+                    (sample_array.shape[0], sample_array.shape[1], sample_array.shape[2], 1))
             y_pred_test = estimator.predict(sample_array)
             output_lst.append(y_pred_test)
             truth_lst.append(label_array)
@@ -377,6 +398,7 @@ def main():
     end = time.time()
     inference_time = end - start
     num_test = output_array.shape[0]
+    band = args.band
     # for filename in [filenames[dt_num]]:
     for filename in filenames:
         units_index_test = np.fromstring(
@@ -388,7 +410,8 @@ def main():
             fig_verify = plt.figure(figsize=(24, 10))
             plt.plot(output_lst[idx], color="green")
             plt.plot(truth_lst[idx], color="red", linewidth=2.0)
-            plt.title('Unit%s inference' %str(int(units_index_test[idx])), fontsize=30)
+            plt.fill_between(range(len(truth_lst[idx])), truth_lst[idx]+band, truth_lst[idx]-band, linestyle=':', alpha=0.5)
+            plt.title('Unit%s inference with band=+/-%s' %(str(int(units_index_test[idx])), int(band)), fontsize=30)
             plt.yticks(fontsize=20)
             plt.xticks(fontsize=20)
             plt.ylabel('RUL', fontdict={'fontsize': 24})

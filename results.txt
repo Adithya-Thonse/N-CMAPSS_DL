@@ -286,5 +286,44 @@ deepgrucnnfc
    INFO: root                : Inference time:  145.69640183448792
    INFO: root                : Result in RMSE:  5.16
    INFO: root                : Result in NASA Score:  0.48
+==============================================================================================================
+Mobilenetv2 on DS02
+==============================================================================================================
+   INFO: root                : The FLOPs is:19738241
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  42127
+   INFO: root                : Training time:  1359.9732193946838
+   INFO: root                : # Inference samples:  10036
+   INFO: root                : Inference time:  15.965278148651123
+   INFO: root                : Result in RMSE:  8.09
+   INFO: root                : Result in NASA Score:  0.88
+
+
+   INFO: root                : The FLOPs is:19738241
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Inference samples:  5020
+   INFO: root                : Inference time:  10.59999966621399
+   INFO: root                : Result in RMSE:  4.61
+   INFO: root                : Result in NASA Score:  0.35
+
+==============================================================================================================
+Transformer on DS02
+==============================================================================================================
+   INFO: root                : The FLOPs is:552585
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  42127
+   INFO: root                : Training time:  4102.253522157669
+   INFO: root                : # Inference samples:  10036
+   INFO: root                : Inference time:  10.797961473464966
+   INFO: root                : Result in RMSE:  7.09
+   INFO: root                : Result in NASA Score:  0.70
+
+critical_RULs only
+   INFO: root                : The FLOPs is:552585
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Inference samples:  5020
+   INFO: root                : Inference time:  8.538965702056885
+   INFO: root                : Result in RMSE:  3.6
+   INFO: root                : Result in NASA Score:  0.26
 
 

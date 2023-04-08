@@ -195,6 +195,7 @@ Using `N-CMAPSS_DS02-006.h5` and a Model (GRU+CNN+FC) of 10.6M FLOPS:
 | 15                   |          36868          |           8786           | 7.69 |    0.74    |
 | 20                   |          31603          |           7532           | 5.99 |    0.53    |
 | 30                   |          21084          |           5029           | 8.47 |    0.94    |
+
 Seems like 10% is a sweet spot. Although 20% has better numbers, it also means a very big chunk of the data is getting skipped, so not preferred.
 
 
@@ -206,16 +207,24 @@ Seems like 10% is a sweet spot. Although 20% has better numbers, it also means a
    Model using GRU+CNN+FC of `10.6M FLOPS` gave the following results: </br>
    In my opinion, these results are really good! To be able to predict within 5 cycles of the actual RUL is amazing. 
 
-| FLOPS    | No. of Training Samples | No. of inference Samples | RMSE | NASA Score |
-|----------|-------------------------|--------------------------|:----:|:----------:|
-| 10635625 | 231192                  | 64158                    | 4.98 |    0.47    |
+| FLOPS | No. of Training Samples | No. of inference Samples | RMSE | NASA Score |
+|-------|-------------------------|--------------------------|:----:|:----------:|
+| 10.6M | 231192                  | 64158                    | 4.98 |    0.47    |
 
 7. A much smaller model `deepgrucnnfc` in `dnn.py` which had just `3.07M FLOPS` yielded the following results.
 All 7 datasets were taken with 10% of data being skipped.
 
-| FLOPS   | No. of Training Samples | No. of inference Samples | RMSE | NASA Score |
-|:--------|:-----------------------:|:------------------------:|:----:|:----------:|
-| 3070875 |         264143          |          73308           | 5.16 |    0.48    |
+| FLOPS | No. of Training Samples | No. of inference Samples | RMSE | NASA Score |
+|:------|:-----------------------:|:------------------------:|:----:|:----------:|
+| 3.07M |         264143          |          73308           | 5.16 |    0.48    |
+
+8. The following experiment was about comparing newer architectures, 10% skip, on DS02 dataset only
+
+| Model       | FLOPS  | RMSE (full DS02) | NASA Score (full DS02) | RMSE (critical RULs) | NASA Score (critical RULs) |
+|:------------|:------:|:----------------:|------------------------|:--------------------:|:--------------------------:|
+| Mobilenetv2 | 19.7M  |       8.09       | 0.88                   |         4.61         |            0.35            |
+| transformer | 0.552M |       7.09       | 0.70                   |         3.6          |            0.26            |
+
 
 ## References
 <a id="1">[1]</a> 
