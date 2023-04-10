@@ -243,5 +243,5 @@ Mo, Hyunho, and Giovanni Iacca. "Multi-objective optimization of extreme learnin
 
 ## Acknowledgement
 
-This repo has been built on top of Hyunho Mo's amazing <a id="https://github.com/mohyunho/N-CMAPSS_DL/tree/main">repo</a>. Please do check it out and give a star! 
+This repo has been built on top of Hyunho Mo's amazing <a id="https://github.com/mohyunho/N-CMAPSS_DL/tree/main">repo</a>. Please do check it out and give a star! https://github.com/mohyunho/N-CMAPSS_DL/tree/main
 
