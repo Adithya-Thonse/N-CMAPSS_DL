@@ -312,7 +312,7 @@ def main():
             sample_array = sample_array.reshape((sample_array.shape[0], sample_array.shape[1], sample_array.shape[2], 1))
             model = MobileNetV2()
         elif model == "transformer":
-            model = transformer(sample_array.shape[1:], head_size=256, num_heads=4, ff_dim=4, num_transformer_blocks=4,
+            model = transformer(sample_array.shape[1:], head_size=256, num_heads=6, ff_dim=4, num_transformer_blocks=6,
                                 mlp_units=[128], mlp_dropout=0.0, dropout=0.0,)
         # model = TD_CNNBranch(n_filters, window_length=sample_array.shape[2], n_window=1, input_features=sample_array.shape[3],
         #                                strides_len=0, kernel_size=kernel_size, n_conv_layer=4, initializer=initializer)

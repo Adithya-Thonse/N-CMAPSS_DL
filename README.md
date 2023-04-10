@@ -211,19 +211,21 @@ Seems like 10% is a sweet spot. Although 20% has better numbers, it also means a
 |-------|-------------------------|--------------------------|:----:|:----------:|
 | 10.6M | 231192                  | 64158                    | 4.98 |    0.47    |
 
-7. A much smaller model `deepgrucnnfc` in `dnn.py` which had just `3.07M FLOPS` yielded the following results.
-All 7 datasets were taken with 10% of data being skipped.
+7. A much smaller model `deepgrucnnfc`, `transformer` in `dnn.py` which had just `3.07M FLOPS` yielded the following results.
+All 7 datasets were taken with 10% of data being skipped, evaluated on critical RULs.
 
 | FLOPS | No. of Training Samples | No. of inference Samples | RMSE | NASA Score |
 |:------|:-----------------------:|:------------------------:|:----:|:----------:|
 | 3.07M |         264143          |          73308           | 5.16 |    0.48    |
+| 1.12M |         264143          |          73308           | 4.68 |    0.41    |
+
 
 8. The following experiment was about comparing newer architectures, 10% skip, on DS02 dataset only
 
-| Model       | FLOPS  | RMSE (full DS02) | NASA Score (full DS02) | RMSE (critical RULs) | NASA Score (critical RULs) |
-|:------------|:------:|:----------------:|------------------------|:--------------------:|:--------------------------:|
-| Mobilenetv2 | 19.7M  |       8.09       | 0.88                   |         4.61         |            0.35            |
-| transformer | 0.552M |       7.09       | 0.70                   |         3.6          |            0.26            |
+| Model                 | FLOPS  | RMSE (full DS02) | NASA Score (full DS02) | RMSE (critical RULs) | NASA Score (critical RULs) |
+|:----------------------|:------:|:----------------:|------------------------|:--------------------:|:--------------------------:|
+| Mobilenetv2           | 19.7M  |       8.09       | 0.88                   |         4.61         |            0.35            |
+| transformer (smaller) | 0.552M |       7.09       | 0.70                   |         3.6          |            0.26            |
 
 
 ## References

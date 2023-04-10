@@ -325,5 +325,24 @@ critical_RULs only
    INFO: root                : Inference time:  8.538965702056885
    INFO: root                : Result in RMSE:  3.6
    INFO: root                : Result in NASA Score:  0.26
+==============================================================================================================
+Transformer on all datasets
+==============================================================================================================
+   INFO: root                : The FLOPs is:552585
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Training samples:  264143
+   INFO: root                : Training time:  42105.35184907913
+   INFO: root                : # Inference samples:  146596
+   INFO: root                : Inference time:  150.48271942138672
+   INFO: root                : Result in RMSE:  9.27
+   INFO: root                : Result in NASA Score:  1.50
+
+critical_RULs only
+   INFO: root                : The FLOPs is:552585
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Inference samples:  73308
+   INFO: root                : Inference time:  93.0106909275055
+   INFO: root                : Result in RMSE:  4.8
+   INFO: root                : Result in NASA Score:  0.43
 
 
