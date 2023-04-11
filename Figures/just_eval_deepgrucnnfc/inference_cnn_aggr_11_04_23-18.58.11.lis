@@ -1,0 +1,103 @@
+   INFO: root                : 
+  Execution information:
+  Date/Time of run : 2023-04-11 18:58:11
+  Node name        : udb0484689
+  User login       : a0484689
+  Operating System : Linux-5.4.0-84-generic-x86_64-with-glibc2.27
+  Python location  : /home/a0484689/.pyenv/versions/py310_ncmapss/bin/python
+
+   INFO: root                : No training will be done. Only evaluating: /home/a0484689/PycharmProjects/py310_ncmapss/N-CMAPSS_DL/Figures/except2_1000ep_deepgrucnnfc_second_half_RULs/except2_1000ep_deepgrucnnfc_second_half_RULs.h5
+   INFO: root                : The FLOPs is:3070875
+   INFO: root                : Test data index: 11.0; Subsampled by 10 to (2655, 50, 20)
+   INFO: root                : N-CMAPSS_DS02-006: 11: RMSE: 4.78, NASA Score: 0.3816719055175781
+   INFO: root                : Test data index: 14.0; Subsampled by 10 to (629, 50, 20)
+   INFO: root                : N-CMAPSS_DS02-006: 14: RMSE: 6.14, NASA Score: 0.5182678699493408
+   INFO: root                : Test data index: 15.0; Subsampled by 10 to (1736, 50, 20)
+   INFO: root                : N-CMAPSS_DS02-006: 15: RMSE: 3.06, NASA Score: 0.20739765465259552
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (2743, 50, 20)
+   INFO: root                : N-CMAPSS_DS07: 7: RMSE: 3.71, NASA Score: 0.36370328068733215
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (1411, 50, 20)
+   INFO: root                : N-CMAPSS_DS07: 8: RMSE: 3.0, NASA Score: 0.2053011953830719
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (5762, 50, 20)
+   INFO: root                : N-CMAPSS_DS07: 9: RMSE: 9.6, NASA Score: 1.5786535739898682
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1574, 50, 20)
+   INFO: root                : N-CMAPSS_DS07: 10: RMSE: 3.07, NASA Score: 0.29297181963920593
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (2829, 50, 20)
+   INFO: root                : N-CMAPSS_DS06: 7: RMSE: 4.17, NASA Score: 0.3478323519229889
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (1554, 50, 20)
+   INFO: root                : N-CMAPSS_DS06: 8: RMSE: 6.36, NASA Score: 0.8950119018554688
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (4234, 50, 20)
+   INFO: root                : N-CMAPSS_DS06: 9: RMSE: 2.03, NASA Score: 0.1511119157075882
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1481, 50, 20)
+   INFO: root                : N-CMAPSS_DS06: 10: RMSE: 2.73, NASA Score: 0.2567736804485321
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (1573, 50, 20)
+   INFO: root                : N-CMAPSS_DS01-005: 7: RMSE: 9.01, NASA Score: 0.9319248795509338
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (3204, 50, 20)
+   INFO: root                : N-CMAPSS_DS01-005: 8: RMSE: 3.95, NASA Score: 0.3749784231185913
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (1409, 50, 20)
+   INFO: root                : N-CMAPSS_DS01-005: 9: RMSE: 12.4, NASA Score: 1.61984121799469
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (4766, 50, 20)
+   INFO: root                : N-CMAPSS_DS01-005: 10: RMSE: 2.76, NASA Score: 0.22198425233364105
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (2987, 50, 20)
+   INFO: root                : N-CMAPSS_DS05: 7: RMSE: 4.91, NASA Score: 0.562821626663208
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (1555, 50, 20)
+   INFO: root                : N-CMAPSS_DS05: 8: RMSE: 2.52, NASA Score: 0.1770104467868805
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (4234, 50, 20)
+   INFO: root                : N-CMAPSS_DS05: 9: RMSE: 3.14, NASA Score: 0.23462674021720886
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1481, 50, 20)
+   INFO: root                : N-CMAPSS_DS05: 10: RMSE: 4.44, NASA Score: 0.3525233268737793
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (3806, 50, 20)
+   INFO: root                : N-CMAPSS_DS03-012: 10: RMSE: 3.34, NASA Score: 0.23522041738033295
+   INFO: root                : Test data index: 11.0; Subsampled by 10 to (3299, 50, 20)
+   INFO: root                : N-CMAPSS_DS03-012: 11: RMSE: 2.3, NASA Score: 0.1394117921590805
+   INFO: root                : Test data index: 12.0; Subsampled by 10 to (1624, 50, 20)
+   INFO: root                : N-CMAPSS_DS03-012: 12: RMSE: 7.33, NASA Score: 0.9855951070785522
+   INFO: root                : Test data index: 13.0; Subsampled by 10 to (4429, 50, 20)
+   INFO: root                : N-CMAPSS_DS03-012: 13: RMSE: 3.97, NASA Score: 0.3979836404323578
+   INFO: root                : Test data index: 14.0; Subsampled by 10 to (1384, 50, 20)
+   INFO: root                : N-CMAPSS_DS03-012: 14: RMSE: 3.13, NASA Score: 0.200352281332016
+   INFO: root                : Test data index: 15.0; Subsampled by 10 to (2474, 50, 20)
+   INFO: root                : N-CMAPSS_DS03-012: 15: RMSE: 2.08, NASA Score: 0.13282820582389832
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (2173, 50, 20)
+   INFO: root                : N-CMAPSS_DS08c-008: 7: RMSE: 5.04, NASA Score: 0.39017587900161743
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (2224, 50, 20)
+   INFO: root                : N-CMAPSS_DS08c-008: 8: RMSE: 3.13, NASA Score: 0.2667803466320038
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (2158, 50, 20)
+   INFO: root                : N-CMAPSS_DS08c-008: 9: RMSE: 3.46, NASA Score: 0.2698306441307068
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1920, 50, 20)
+   INFO: root                : N-CMAPSS_DS08c-008: 10: RMSE: 9.86, NASA Score: 1.1053974628448486
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (1349, 50, 20)
+   INFO: root                : N-CMAPSS_DS08a-009: 10: RMSE: 24.93, NASA Score: 8.896986961364746
+   INFO: root                : Test data index: 11.0; Subsampled by 10 to (2193, 50, 20)
+   INFO: root                : N-CMAPSS_DS08a-009: 11: RMSE: 29.79, NASA Score: 14.67585563659668
+   INFO: root                : Test data index: 12.0; Subsampled by 10 to (3395, 50, 20)
+   INFO: root                : N-CMAPSS_DS08a-009: 12: RMSE: 58.67, NASA Score: 135.66708374023438
+   INFO: root                : Test data index: 13.0; Subsampled by 10 to (3412, 50, 20)
+   INFO: root                : N-CMAPSS_DS08a-009: 13: RMSE: 25.23, NASA Score: 9.521842002868652
+   INFO: root                : Test data index: 14.0; Subsampled by 10 to (3328, 50, 20)
+   INFO: root                : N-CMAPSS_DS08a-009: 14: RMSE: 30.61, NASA Score: 15.22040843963623
+   INFO: root                : Test data index: 15.0; Subsampled by 10 to (1222, 50, 20)
+   INFO: root                : N-CMAPSS_DS08a-009: 15: RMSE: 57.33, NASA Score: 101.06993865966797
+   INFO: root                : Test data index: 7.0; Subsampled by 10 to (3288, 50, 20)
+   INFO: root                : N-CMAPSS_DS04: 7: RMSE: 17.75, NASA Score: 6.164052963256836
+   INFO: root                : Test data index: 8.0; Subsampled by 10 to (3434, 50, 20)
+   INFO: root                : N-CMAPSS_DS04: 8: RMSE: 22.77, NASA Score: 9.869010925292969
+   INFO: root                : Test data index: 9.0; Subsampled by 10 to (2712, 50, 20)
+   INFO: root                : N-CMAPSS_DS04: 9: RMSE: 13.54, NASA Score: 3.199993371963501
+   INFO: root                : Test data index: 10.0; Subsampled by 10 to (4988, 50, 20)
+   INFO: root                : N-CMAPSS_DS04: 10: RMSE: 20.97, NASA Score: 6.155126571655273
+   INFO: root                : Predictions: (102629,), Ground Truths: (102629,)
+   INFO: root                : Per Engine units have been written at: Unit_Scores_transformer_11_04_23-19.01.10.csv
+   INFO: root                : The FLOPs is:3070875
+   INFO: root                : wind length_50,  win stride_1
+   INFO: root                : # Inference samples:  102629
+   INFO: root                : Inference time:  175.84103560447693
+   INFO: root                : Result in RMSE:  17.45
+   INFO: root                : Result in NASA Score:  8.18
+   INFO: root                : 
+  Execution status:
+     0 Errors detected.
+     0 Warnings detected.
+
+  Total execution time : 0:03:07.773251
+

@@ -45,7 +45,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 data_filedir = os.path.join(current_dir, 'N-CMAPSS')
 sample_dir_path = os.path.join(data_filedir, 'Samples_whole')
 # filenames = [opb(x) for x in glob(sample_dir_path + '/*')]
-filenames = ['N-CMAPSS_DS02-006', 'N-CMAPSS_DS07', 'N-CMAPSS_DS06', 'N-CMAPSS_DS01-005', 'N-CMAPSS_DS05', 'N-CMAPSS_DS03-012', 'N-CMAPSS_DS08c-008']
+filenames = ['N-CMAPSS_DS02-006', 'N-CMAPSS_DS07', 'N-CMAPSS_DS06', 'N-CMAPSS_DS01-005',
+             'N-CMAPSS_DS05', 'N-CMAPSS_DS03-012', 'N-CMAPSS_DS08c-008',]
 # Excluded Datasets: 'N-CMAPSS_DS08a-009', 'N-CMAPSS_DS04',
 # filenames = ['N-CMAPSS_DS02-006']
 model_temp_path = os.path.join(current_dir, 'Models', 'model.h5')
@@ -244,8 +245,7 @@ def main():
     sub = args.sub
     skip = args.skip / 100
     sampling = args.sampling
-    model= args.model
-    logger = command_display("{}.lis".format(ops(opb(__file__))[0]))
+    logger = command_display("{}_{}.lis".format(ops(opb(__file__))[0], time.strftime("%d_%m_%y-%H.%M.%S")))
 
     if not(args.only_eval_model and ope(args.only_eval_model)):
         model_temp_path = os.path.join(current_dir, 'Models', 'model.h5')
@@ -298,20 +298,20 @@ def main():
 
         # strategy = tf.distribute.MirroredStrategy()
         # with strategy.scope():
-        if model == "one_dcnn":
+        if args.model == "one_dcnn":
             model = one_dcnn(n_filters, kernel_size, sample_array, initializer)
-        elif model == "cudnnlstm":
+        elif args.model == "cudnnlstm":
             model = cudnngru(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
-        elif model == "cudnngru":
+        elif args.model == "cudnngru":
             model = cudnngru(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
-        elif model == "deepgrucnnfc":
+        elif args.model == "deepgrucnnfc":
             model = deepgrucnnfc(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
-        elif model == "lankygrucnnfc":
+        elif args.model == "lankygrucnnfc":
             model = lankygrucnnfc(sequence_length=sample_array.shape[1], nb_features=sample_array.shape[2], initializer=initializer)
-        elif model == "MobileNetV2":
+        elif args.model == "MobileNetV2":
             sample_array = sample_array.reshape((sample_array.shape[0], sample_array.shape[1], sample_array.shape[2], 1))
             model = MobileNetV2()
-        elif model == "transformer":
+        elif args.model == "transformer":
             model = transformer(sample_array.shape[1:], head_size=256, num_heads=6, ff_dim=4, num_transformer_blocks=6,
                                 mlp_units=[128], mlp_dropout=0.0, dropout=0.0,)
         # model = TD_CNNBranch(n_filters, window_length=sample_array.shape[2], n_window=1, input_features=sample_array.shape[3],
@@ -349,6 +349,7 @@ def main():
     truth_lst = []
     # dt_num = 0
     # for filename in [filenames[dt_num]]:
+    unit_scores = [] # Just scores per engine RMSE and NASA Scores
     for filename in filenames:
         units_index_test = np.fromstring(
             file_devtest_df[file_devtest_df.File == filename + '.h5']["Test Units"].values[0][1:-1],
@@ -382,6 +383,11 @@ def main():
             y_pred_test = estimator.predict(sample_array)
             output_lst.append(y_pred_test)
             truth_lst.append(label_array)
+            logger.info("{}: {}: RMSE: {}, NASA Score: {}".format(
+                filename, int(index), round(sqrt(mean_squared_error(y_pred_test, label_array)), 2),
+                nasa_score(label_array, y_pred_test)[0]))
+            unit_scores.append([filename, int(index), round(sqrt(mean_squared_error(y_pred_test, label_array)), 2),
+                           round(nasa_score(label_array, y_pred_test)[0], 2)])
 
         # logger.info(output_lst[0].shape)
         # logger.info(truth_lst[0].shape)
@@ -394,6 +400,10 @@ def main():
     logger.info("Predictions: {}, Ground Truths: {}".format(output_array.shape, trytg_array.shape))
     rms = round(sqrt(mean_squared_error(output_array, trytg_array)), 2)
     nasa_score_num = nasa_score(trytg_array, output_array)
+    unit_score_filename = "Unit_Scores_{}_{}.csv".format(args.model, time.strftime("%d_%m_%y-%H.%M.%S"))
+    pd.DataFrame(unit_scores, columns=['Filename', 'Engine Unit', 'RMSE', 'NASAScore']).to_csv(unit_score_filename)
+    logger.info("Per Engine units have been written at: {}".format(unit_score_filename))
+
 
     end = time.time()
     inference_time = end - start
