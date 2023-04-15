@@ -328,6 +328,33 @@ Evaluation time per sample on GTX 1080 Ti
 | N-CMAPSS_DS08a-009     |          14 |            5.75 |    14.29 |        15.22 |        6.13 |
 | N-CMAPSS_DS08a-009     |          15 |            4.14 |    75.27 |       101.07 |      171.29 |
 
+10. Lastly, on training `transformer` model exlusively on DS04 only and DS08a-009 only, the following results were obtained.
+
+| Filename           | Inference Samples |  RMSE | NASA Score |
+|:-------------------|------------------:|------:|-----------:|
+| N-CMAPSS_DS04      |             14422 |  8.81 |       0.95 |
+| N-CMAPSS_DS08a-009 |             14899 | 17.77 |       5.25 |
+
+
+## Streamlit
+
+A streamlit app has been created that uses the predictions of all the four models for individual test engines.
+
+The data generated is under `prediction_csv_dir`. To freshly generate the data:
+```bash
+python streamlit_data_prepare.py
+```
+
+To run the app on Streamlit,
+```commandline
+pip install streamlit
+streamlit run streamlit_code.py
+```
+
+This may ask for your email etc, you can just skip it by pressing the Enter key. </br>
+It creates a localhost link: usually http://localhost:8501/
+
+
 ## References
 <a id="1">[1]</a> 
 Frederick, Dean & DeCastro, Jonathan & Litt, Jonathan. (2007). User's Guide for the Commercial Modular Aero-Propulsion System Simulation (C-MAPSS). NASA Technical Manuscript. 2007–215026. 

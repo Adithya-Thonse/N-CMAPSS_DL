@@ -48,7 +48,7 @@ sample_dir_path = os.path.join(data_filedir, 'Samples_whole')
 filenames = ['N-CMAPSS_DS02-006', 'N-CMAPSS_DS07', 'N-CMAPSS_DS06', 'N-CMAPSS_DS01-005',
              'N-CMAPSS_DS05', 'N-CMAPSS_DS03-012', 'N-CMAPSS_DS08c-008',]
 # Excluded Datasets: 'N-CMAPSS_DS08a-009', 'N-CMAPSS_DS04',
-# filenames = ['N-CMAPSS_DS02-006']
+# filenames = ['N-CMAPSS_DS04']
 model_temp_path = os.path.join(current_dir, 'Models', 'model.h5')
 tf_temp_path = os.path.join(current_dir, 'TF_Model_tf')
 log_dir = os.path.join(current_dir, 'log_dir')
@@ -373,9 +373,9 @@ def main():
             # logger.info("sub sample_array.shape {}".format(sample_array.shape))
             # logger.info("sub label_array.shape {}".format(label_array.shape))
             logger.info("Test data index: {:2.1f}; Subsampled by {} to {}".format(index, sub, sample_array.shape, ))
-            custom_objects = {"NASAScore": NASAScore,}
+            custom_objects = {"NASAScore": NASAScore, }
             with tf.keras.utils.custom_object_scope(custom_objects):
-                estimator = load_model(model_temp_path,compile=False)
+                estimator = load_model(model_temp_path, compile=False)
             # estimator = load_model(model_temp_path)
             if model == "MobileNetV2":
                 sample_array = sample_array.reshape(
